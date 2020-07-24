@@ -23,7 +23,10 @@ const BodyDiv = styled.div`
     button {
         width: 100%;
         max-width: 100px;
-        height: 40px;
+        height: 50px;
+        &:last-child {
+            margin-top: 15px;
+        }
     }
   }
 `;
@@ -69,6 +72,8 @@ const ToDoList = () => {
         setTaskName(e.target.value)
     }
 
+    
+
     return(
         <BodyDiv>
             <div>
@@ -81,17 +86,21 @@ const ToDoList = () => {
                 />
                 <button onClick={() => {
                     dispatch( { type: 'ADD_TODO', payload: taskName})
-                }}>Add Your Task</button>
+                }}>Add Your Task</button><br />
+                <button onClick={() => {
+                    dispatch( { type: 'CLEAR_COMPLETED', payload: false})
+                }}>Clear Completed Tasks</button> 
             </div>
             {state.map(item => {
                 return (
                     <NoteCard key={item.id}>
                         <h2>Task Name: </h2>
                         <h2>{item.item}</h2>
-                        <p onClick={() => { dispatch({ type: 'SET_COMPLETE', payload: {complete: !item.completed, id: item.id}})}}>{item.completed ? "Task complete" : "Task incomplete"}</p>
+                        <p className={item.completed ? "itemComplete" : "itemIncomplete"} onClick={() => { dispatch({ type: 'SET_COMPLETE', payload: {complete: !item.completed, id: item.id}})}}>{item.completed ? "Task complete" : "Task incomplete : Click to complete"}</p>
                     </NoteCard>
                 )
             })}
+
         </BodyDiv>
     )
 }

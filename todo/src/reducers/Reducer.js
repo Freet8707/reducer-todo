@@ -17,6 +17,15 @@ export const reducer = (state, action) => {
                 return item
             })
             return state = newState
+        case 'CLEAR_COMPLETED':
+            let clearedState = state.filter(item => {
+                if(item.completed === action.payload) {
+                    console.log(item)
+                    return item
+                }
+                return false
+            })
+            return state = clearedState
         default:
             return state
     }
